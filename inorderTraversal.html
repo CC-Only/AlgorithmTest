@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给定一个二叉树，返回它的中序遍历
+    // 分别通过递归、迭代完成
+
+    // 示例:
+
+    // 输入: [1,null,2,3]
+    //    1
+    //     \
+    //      2
+    //     /
+    //    3
+
+    // 输出: [1,3,2]
+
+    /**
+     * Definition for a binary tree node.
+     * function TreeNode(val) {
+     *     this.val = val;
+     *     this.left = this.right = null;
+     * }
+     */
+    /**
+     * @param {TreeNode} root
+     * @return {number[]}
+     */
+
+    // 定义测试数值
+    const root = {
+      val: 1,
+      left: null,
+      right: {
+        val: 2,
+        left: { val: 3, left: null, right: null },
+        right: null,
+      },
+    };
+
+    // 一、递归
+    const inorderTraversal = (root) => {
+      // 1. 设置res保存中序遍历结果
+      const res = [];
+      // 2. 递归
+      const inorder = (root) => {
+        // 2.1 如果见底，则返回
+        if (!root) {
+          return;
+        }
+        // 2.2 中序遍历：左 -> 中 -> 右
+        inorder(root.left);
+        res.push(root.val);
+        inorder(root.right);
+      }
+      inorder(root);
+      // 3. 返回结果
+      return res;
+    };
+
+    console.log(inorderTraversal(root));
+
+
+    // 二、迭代
+    const inorderTraversal_2 = (root) => {
+      // 1. 设置res保存中序遍历结果
+      const result = [];
+      // 2. 设置栈队列
+      const stack = [];
+      // 3. 遍历
+      while (root || stack.length) {
+        // 3.1 栈添加左子树
+        while (root) {
+          stack.push(root);
+          root = root.left;
+        }
+        // 3.2 推出
+        root = stack.pop();
+        // 3.3 获取值
+        result.push(root.val);
+        // 3.4 转换右子树
+        root = root.right;
+      }
+      // 4. 返回结果
+      return result;
+    };
+
+    console.log(inorderTraversal_2(root));
+  </script>
+</body>
+
+</html>

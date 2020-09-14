@@ -24,32 +24,46 @@
      * @param str: the origin string
      * @return: the start and end of every twitch words
      */
-    var twitchWords = function (str) {
 
+    const twitchWords = function (str) {
+      // 1. 字符串转数组
       var arr = str.split('')
+      // 2.1 定义存储数组，外部数组和内部数组
       var arr_out = []
       var arr_in = []
+      // 2.2 遍历跳转值
       var i = 0
+      // 3. 遍历
       while (i < arr.length) {
+        // 3.1 满足三位连续相等时
         if (arr[i] === arr[i + 1] && arr[i + 1] === arr[i + 2]) {
+          // 3.2 将起始下标存入内部数组
           arr_in.push(i);
+          // 3.3 记录起始值
           let n = i
+          // 3.4 找寻结束下标
           while (arr[n + 2] === arr[n + 3]) {
             n++
           }
+          // 3.5 将结束下标存入内部数组
           arr_in.push(n + 2);
+          // 3.6 跳转至结束下标加一
           i = n + 3
+          // 3.7 将内部数组存入外部数组
           arr_out.push(arr_in)
+          // 3.8 内部数组清空
           arr_in = []
         }
         else {
           i++
         }
       }
+      // 4. 返回最终外部数组
       return arr_out
-      // console.log(arr_out);
+      console.log(arr_out);
     }
-    twitchWords("aqquuuuwwhhhiiiimgyyffffhgyeyyegdvvvvvvvvvhhheiddd")
+    console.log(twitchWords("aqquuuuwwhhhiiiimgyyfffhgyeyyegdvvvvvvhhheiddd"));
+
   </script>
 </body>
 
